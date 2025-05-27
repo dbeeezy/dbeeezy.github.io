@@ -39,9 +39,16 @@
     }
 
     .back-arrow {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      color: #b3b3b3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       pointer-events: none;
+    }
+
+    .back-arrow-img {
+      width: clamp(1rem, 3vw, 1.2rem);
+      height: clamp(1rem, 3vw, 1.2rem);
+      object-fit: contain;
     }
 
     .dots {
@@ -230,7 +237,11 @@
         margin-top: 8px;
       }
 
-      .back-arrow,
+      .back-arrow-img {
+        width: clamp(0.9rem, 3vw, 1rem);
+        height: clamp(0.9rem, 3vw, 1rem);
+      }
+
       .dots {
         font-size: clamp(0.9rem, 3vw, 1rem);
       }
@@ -256,7 +267,9 @@
   <main class="flex-grow container mx-auto px-6 flex justify-center items-center flex-col">
     <div class="player" id="player">
       <div class="header">
-        <div class="back-arrow">⬇</div>
+        <div class="back-arrow">
+          <img src="/back-arrow.png" alt="Back Arrow" class="back-arrow-img">
+        </div>
         <div class="album-name" contenteditable="true">Album Name</div>
         <div class="dots">
           <span>•</span><span>•</span><span>•</span>
@@ -283,7 +296,7 @@
       <div class="controls">
         <span>🔀</span>
         <span>⏮</span>
-        <span class="play-ppxause">⏸</span>
+        <span class="play-pause">⏸</span>
         <span>⏭</span>
         <span>🔁</span>
       </div>
