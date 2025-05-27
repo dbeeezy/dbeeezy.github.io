@@ -1,65 +1,48 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="light">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moderne Webseite</title>
+    <title>Spotify Screenshot Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Benutzerdefinierte Dark-Mode-Styles */
-        [data-theme="dark"] {
-            --bg-color: #1f2937;
-            --text-color: #f3f4f6;
-            --section-bg: #374151;
-            --card-bg: #4b5563;
-            --hero-bg: linear-gradient(to right, #1e40af, #4c1d95);
-        }
-        [data-theme="light"] {
-            --bg-color: #f3f4f6;
-            --text-color: #1f2937;
-            --section-bg: #ffffff;
-            --card-bg: #ffffff;
-            --hero-bg: linear-gradient(to right, #3b82f6, #4f46e5);
-        }
+        /* Benutzerdefinierte Styles für die dunkle Seite */
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #18191A;
+            color: #f3f4f6;
         }
         .bg-section {
-            background-color: var(--section-bg);
+            background-color: #18191A;
         }
         .bg-card {
-            background-color: var(--card-bg);
+            background-color: #18191A;
         }
-        .bg-hero {
-            background: var(--hero-bg);
+        .bg-button {
+            background-color: #090808;
+        }
+        .hover\:bg-button:hover {
+            background-color: #18191A; /* Leicht hellerer Farbton für Hover-Effekt */
+        }
+        .text-button {
+            color: #f3f4f6; /* Heller Text für Lesbarkeit */
+        }
+        .hover\:text-button:hover {
+            color: #d1d5db; /* Leicht dunklerer Grauton für Hover-Effekt */
         }
     </style>
 </head>
 <body class="font-sans">
     <!-- Navbar -->
-    <nav class="bg-white dark:bg-gray-800 shadow-lg fixed w-full z-10">
+    <nav class="bg-section shadow-lg fixed w-full z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Logo</h1>
+                        <!-- Logo-Bereich ohne Text -->
                     </div>
                 </div>
-                <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                    <a href="#home" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">Home</a>
-                    <a href="#about" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">Über uns</a>
-                    <a href="#services" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">Dienstleistungen</a>
-                    <a href="#contact" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">Kontakt</a>
-                    <!-- Dark/Light Mode Switch -->
-                    <button id="theme-toggle" class="ml-4 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none">
-                        <svg id="theme-icon" class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap "round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                    </button>
-                </div>
                 <div class="-mr-2 flex items-center sm:hidden">
-                    <button id="menu-toggle" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none">
+                    <button id="menu-toggle" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-300 hover:bg-button focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
@@ -70,128 +53,22 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden sm:hidden">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">Home</a>
-                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">Über uns</a>
-                <a href="#services" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">Dienstleistungen</a>
-                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">Kontakt</a>
-                <!-- Mobile Dark/Light Mode Switch -->
-                <button id="mobile-theme-toggle" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
-                    <svg id="mobile-theme-icon" class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                    Dark/Light Mode
-                </button>
+                <!-- Keine Links im mobilen Menü -->
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="bg-hero text-white h-screen flex items-center justify-center">
-        <div class="text-center max-w-3xl mx-auto px-4">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Willkommen auf unserer modernen Webseite</h1>
-            <p class="text-lg md:text-xl mb-6">Entdecken Sie unsere Dienstleistungen und lassen Sie sich inspirieren!</p>
-            <a href="#contact" class="inline-block bg-white text-blue-600 dark:bg-gray-700 dark:text-blue-400 font-semibold py-3 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition">Kontaktieren Sie uns</a>
+    <!-- Spacer to prevent content from being hidden under fixed navbar -->
+    <div class="h-16"></div>
+
+    <!-- Main Content Section -->
+    <section id="main" class="py-20 bg-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- Text entfernt -->
         </div>
     </section>
-
-    <!-- Content Section -->
-    <section id="about" class="py-20 bg-section">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-gray-800 dark:text-white text-center mb-10">Über uns</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Unsere Mission</h3>
-                    <p class="text-gray-600 dark:text-gray-300">Wir streben danach, innovative Lösungen zu bieten, die Ihre Erwartungen übertreffen. Unser Team ist leidenschaftlich und engagiert, um Ihre Visionen Wirklichkeit werden zu lassen.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Unsere Werte</h3>
-                    <p class="text-gray-600 dark:text-gray-300">Integrität, Kreativität und Exzellenz stehen im Mittelpunkt unseres Handelns. Wir setzen auf Transparenz und Zusammenarbeit, um nachhaltiges Wachstum zu fördern.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-100 dark:bg-gray-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-gray-800 dark:text-white text-center mb-10">Unsere Dienstleistungen</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-card p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Webentwicklung</h3>
-                    <p class="text-gray-600 dark:text-gray-300">Moderne und responsive Webseiten, die auf Ihre Bedürfnisse zugeschnitten sind.</p>
-                </div>
-                <div class="bg-card p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">UI/UX Design</h3>
-                    <p class="text-gray-600 dark:text-gray-300">Intuitive und ansprechende Designs, die Ihre Nutzer begeistern.</p>
-                </div>
-                <div class="bg-card p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Beratung</h3>
-                    <p class="text-gray-600 dark:text-gray-300">Strategische Beratung, um Ihre digitalen Ziele zu erreichen.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact" class="bg-gray-800 text-white py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Kontakt</h3>
-                    <p class="text-gray-400">E-Mail: info@beispiel.com</p>
-                    <p class="text-gray-400">Telefon: +49 123 456789</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Links</h3>
-                    <a href="#home" class="block text-gray-400 hover:text-white">Home</a>
-                    <a href="#about" class="block text-gray-400 hover:text-white">Über uns</a>
-                    <a href="#services" class="block text-gray-400 hover:text-white">Dienstleistungen</a>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Folgen Sie uns</h3>
-                    <a href="#" class="block text-gray-400 hover:text-white">Twitter</a>
-                    <a href="#" class="block text-gray-400 hover:text-white">LinkedIn</a>
-                </div>
-            </div>
-            <div class="mt-8 text-center text-gray-400">
-                <p>© 2025 Beispiel GmbH. Alle Rechte vorbehalten.</p>
-            </div>
-        </div>
-    </footer>
 
     <script>
-        // Theme Toggle Logic
-        const htmlElement = document.documentElement;
-        const themeToggle = document.getElementById('theme-toggle');
-        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
-
-        // Load saved theme from localStorage
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        htmlElement.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
-
-        // Theme toggle event listeners
-        themeToggle.addEventListener('click', toggleTheme);
-        mobileThemeToggle.addEventListener('click', toggleTheme);
-
-        function toggleTheme() {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        }
-
-        function updateThemeIcon(theme) {
-            const iconPath = theme === 'light' ?
-                'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z' :
-                'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z';
-            themeIcon.setAttribute('d', iconPath);
-            mobileThemeIcon.setAttribute('d', iconPath);
-        }
-
         // Mobile Menu Toggle
         document.getElementById('menu-toggle').addEventListener('click', () => {
             const mobileMenu = document.getElementById('mobile-menu');
