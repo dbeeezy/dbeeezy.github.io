@@ -19,7 +19,10 @@
       background: linear-gradient(#2a2a2a, #000);
       color: white;
       border-radius: 10px;
-      padding: 10px;
+      padding-top: 20px;
+      padding-right: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
       text-align: center;
       box-sizing: border-box;
       display: flex;
@@ -49,24 +52,31 @@
       width: clamp(1rem, 3vw, 1.2rem);
       height: clamp(1rem, 3vw, 1.2rem);
       object-fit: contain;
+      image-rendering: auto;
     }
 
     .dots {
-      font-size: clamp(0.8rem, 2vw, 0.9rem);
-      color: #b3b3b3;
       display: flex;
-      gap: 4px;
+      align-items: center;
+      justify-content: center;
       pointer-events: none;
+    }
+
+    .dots-img {
+      width: clamp(0.8rem, 2vw, 0.9rem);
+      height: clamp(0.8rem, 2vw, 0.9rem);
+      object-fit: contain;
+      image-rendering: auto;
     }
 
     .album-name {
       font-weight: bold;
       font-size: clamp(0.75rem, 2.5vw, 0.85rem);
-      color: #b3b3b3;
+      color: #ffffff;
       cursor: pointer;
       text-align: center;
       flex-grow: 1;
-      margin: 1;
+      margin: 0;
     }
 
     .cover {
@@ -186,7 +196,10 @@
 
     @media (min-width: 768px) {
       .player {
-        padding: 15px;
+        padding-top: 25px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        padding-left: 15px;
         max-width: 400px;
       }
 
@@ -211,7 +224,10 @@
 
     @media (max-width: 480px) {
       .player {
-        padding: 10px;
+        padding-top: 15px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
         max-width: 320px;
       }
 
@@ -242,8 +258,9 @@
         height: clamp(0.9rem, 3vw, 1rem);
       }
 
-      .dots {
-        font-size: clamp(0.9rem, 3vw, 1rem);
+      .dots-img {
+        width: clamp(0.9rem, 3vw, 1rem);
+        height: clamp(0.9rem, 3vw, 1rem);
       }
 
       .album-name {
@@ -268,11 +285,11 @@
     <div class="player" id="player">
       <div class="header">
         <div class="back-arrow">
-          <img src="/back-arrow.png" alt="Back Arrow" class="back-arrow-img">
+          <img src="/img/back-arrow.png" alt="Back Arrow" class="back-arrow-img">
         </div>
         <div class="album-name" contenteditable="true">Album Name</div>
         <div class="dots">
-          <span>•</span><span>•</span><span>•</span>
+          <img src="/img/dots.png" alt="Menu Dots" class="dots-img">
         </div>
       </div>
 
@@ -337,7 +354,7 @@
 
     document.getElementById('exportBtn').addEventListener('click', function () {
       const player = document.getElementById('player');
-      html2canvas(player, { backgroundColor: null }).then(canvas => {
+      html2canvas(player, { backgroundColor: null, scale: 2 }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'SpotiShotz.jpg';
         link.href = canvas.toDataURL('image/jpeg', 1.0);
