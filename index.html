@@ -33,6 +33,9 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
+      width: 93%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .back-arrow {
@@ -75,6 +78,9 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
+      width: 93%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .song-details {
@@ -105,8 +111,9 @@
       display: flex;
       align-items: center;
       font-size: clamp(0.55rem, 2vw, 0.65rem);
-      margin: 10px 0;
+      margin: 10px auto;
       color: #ccc;
+      width: 93%;
     }
 
     .bar {
@@ -132,7 +139,9 @@
       justify-content: space-around;
       align-items: center;
       margin-top: 10px;
-      font-size: clamp(1.1rem, 4vw, 1.3rem);
+      width: 93%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .controls span {
@@ -178,6 +187,19 @@
         width: 93%;
         margin: 10px auto;
       }
+
+      .header,
+      .song-info,
+      .progress-bar,
+      .controls {
+        width: 93%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .progress-bar {
+        margin: 10px auto;
+      }
     }
 
     @media (max-width: 480px) {
@@ -189,6 +211,19 @@
       .cover {
         width: 93%;
         margin: 6px auto;
+      }
+
+      .header,
+      .song-info,
+      .progress-bar,
+      .controls {
+        width: 93%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .progress-bar {
+        margin: 10px auto;
       }
 
       .controls {
@@ -248,7 +283,7 @@
       <div class="controls">
         <span>🔀</span>
         <span>⏮</span>
-        <span class="play-pause">⏸</span>
+        <span class="play-ppxause">⏸</span>
         <span>⏭</span>
         <span>🔁</span>
       </div>
