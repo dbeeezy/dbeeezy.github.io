@@ -6,6 +6,7 @@
   <title>Spotify-UI-Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.4.0/color-thief.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -152,6 +153,21 @@
       display: none;
     }
 
+    #exportBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ff2a61;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #exportBtn:hover {
+      background-color: #ff7a9c;
+    }
+
     @media (min-width: 768px) {
       .player {
         padding: 15px;
@@ -200,7 +216,7 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-grow container mx-auto px-6 flex justify-center items-center">
+  <main class="flex-grow container mx-auto px-6 flex justify-center items-center flex-col">
     <div class="player" id="player">
       <div class="header">
         <div class="back-arrow">⬇</div>
@@ -235,6 +251,7 @@
         <span>🔁</span>
       </div>
     </div>
+    <button id="exportBtn">Download</button>
   </main>
 
   <!-- Footer Section -->
@@ -267,6 +284,16 @@
         reader.readAsDataURL(file);
       }
     }
+
+    document.getElementById('exportBtn').addEventListener('click', function () {
+      const player = document.getElementById('player');
+      html2canvas(player, { backgroundColor: null }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'SpotiShotz.jpg';
+        link.href = canvas.toDataURL('image/jpeg', 1.0);
+        link.click();
+      });
+    });
   </script>
 </body>
 </html>
