@@ -1,292 +1,127 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spotify-UI-Generator</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.4.0/color-thief.umd.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <style>
-    body {
-      background: #090808;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: unset;
-      margin: 0;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .player {
-      width: 90%;
-      max-width: 400px;
-      aspect-ratio: 9 / 16;
-      background: linear-gradient(#2a2a2a, #000);
-      color: white;
-      border-radius: 10px;
-      padding: 10px; /* Reduziert */
-      text-align: center;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px; /* Reduziert */
-    }
-
-    .back-arrow {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      color: #b3b3b3;
-      pointer-events: none;
-    }
-
-    .dots {
-      font-size: clamp(0.8rem, 2vw, 0.9rem);
-      color: #b3b3b3;
-      display: flex;
-      gap: 4px;
-      pointer-events: none;
-    }
-
-    .album-name {
-      font-weight: bold;
-      font-size: clamp(0.75rem, 2.5vw, 0.85rem);
-      color: #b3b3b3;
-      cursor: pointer;
-      text-align: center;
-      flex-grow: 1;
-      margin: 1;
-    }
-
-    .cover {
-      width: 90%;
-      aspect-ratio: 1 / 1;
-      background-color: #444;
-      margin: 4px auto; /* Reduziert */
-      background-size: cover;
-      background-position: center;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .song-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .song-details {
-      text-align: left;
-      flex: 1;
-    }
-
-    .song-title {
-      font-size: clamp(1.2rem, 4vw, 1.5rem);
-      font-weight: bold;
-      cursor: pointer;
-      margin-bottom: 4px;
-    }
-
-    .artist {
-      font-size: clamp(0.9rem, 3vw, 1rem);
-      color: #aaa;
-      cursor: pointer;
-    }
-
-    .like-button {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      color: #1db954;
-      cursor: pointer;
-    }
-
-    .progress-bar {
-      display: flex;
-      align-items: center;
-      font-size: clamp(0.55rem, 2vw, 0.65rem);
-      margin: 10px 0;
-      color: #ccc;
-    }
-
-    .bar {
-      flex: 1;
-      height: 4px;
-      background: #888;
-      margin: 0 8px;
-      position: relative;
-      border-radius: 2px;
-    }
-
-    .bar::before {
-      content: "";
-      position: absolute;
-      height: 100%;
-      width: 30%;
-      background: #fff;
-      border-radius: 2px;
-    }
-
-    .controls {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      margin-top: 10px;
-      font-size: clamp(1.1rem, 4vw, 1.3rem);
-    }
-
-    .controls span {
-      cursor: pointer;
-      padding: 5px;
-      transition: transform 0.2s;
-    }
-
-    .controls span:active {
-      transform: scale(0.9);
-    }
-
-    .play-pause {
-      font-size: clamp(2rem, 6vw, 2.5rem);
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-
-    #exportBtn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #ff2a61;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #exportBtn:hover {
-      background-color: #ff7a9c;
-    }
-
-    @media (min-width: 768px) {
-      .player {
-        padding: 15px;
-        max-width: 400px;
-      }
-
-      .cover {
-        width: 70%;
-        margin: 10px auto;
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-
-      .player {
-        padding: 10px;
-        max-width: 320px;
-      }
-
-      .cover {
-        width: 85%;
-        margin: 6px auto;
-      }
-
-      .controls {
-        margin-top: 8px;
-      }
-
-      .back-arrow,
-      .dots {
-        font-size: clamp(0.9rem, 3vw, 1rem);
-      }
-
-      .album-name {
-        font-size: clamp(0.65rem, 2vw, 0.75rem);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderne Webseite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="player" id="player">
-    <div class="header">
-      <div class="back-arrow">⬇</div>
-      <div class="album-name" contenteditable="true">Album Name</div>
-      <div class="dots">
-        <span>•</span><span>•</span><span>•</span>
-      </div>
-    </div>
+<body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-2xl font-bold text-gray-800">Logo</h1>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <a href="#home" class="px-3 py-2 text-gray-700 hover:text-blue-500">Home</a>
+                    <a href="#about" class="px-3 py-2 text-gray-700 hover:text-blue-500">Über uns</a>
+                    <a href="#services" class="px-3 py-2 text-gray-700 hover:text-blue-500">Dienstleistungen</a>
+                    <a href="#contact" class="px-3 py-2 text-gray-700 hover:text-blue-500">Kontakt</a>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button id="menu-toggle" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden sm:hidden">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-500">Home</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-500">Über uns</a>
+                <a href="#services" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-500">Dienstleistungen</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-500">Kontakt</a>
+            </div>
+        </div>
+    </nav>
 
-    <div id="cover" class="cover" onclick="document.getElementById('coverInput').click()"></div>
-    <input type="file" id="coverInput" accept="image/*" onchange="updateCover(event)" />
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white h-screen flex items-center justify-center">
+        <div class="text-center max-w-3xl mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Willkommen auf unserer modernen Webseite</h1>
+            <p class="text-lg md:text-xl mb-6">Entdecken Sie unsere Dienstleistungen und lassen Sie sich inspirieren!</p>
+            <a href="#contact" class="inline-block bg-white text-blue-600 font-semibold py-3 px-6 rounded-lg hover:bg-gray-200 transition">Kontaktieren Sie uns</a>
+        </div>
+    </section>
 
-    <div class="song-info">
-      <div class="song-details">
-        <div class="song-title" contenteditable="true">Song Title</div>
-        <div class="artist" contenteditable="true">Artist Name</div>
-      </div>
-      <div class="like-button">✓</div>
-    </div>
+    <!-- Content Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-10">Über uns</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Unsere Mission</h3>
+                    <p class="text-gray-600">Wir streben danach, innovative Lösungen zu bieten, die Ihre Erwartungen übertreffen. Unser Team ist leidenschaftlich und engagiert, um Ihre Visionen Wirklichkeit werden zu lassen.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Unsere Werte</h3>
+                    <p class="text-gray-600">Integrität, Kreativität und Exzellenz stehen im Mittelpunkt unseres Handelns. Wir setzen auf Transparenz und Zusammenarbeit, um nachhaltiges Wachstum zu fördern.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="progress-bar">
-      <span>0:04</span>
-      <div class="bar"></div>
-      <span>-3:58</span>
-    </div>
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-10">Unsere Dienstleistungen</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Webentwicklung</h3>
+                    <p class="text-gray-600">Moderne und responsive Webseiten, die auf Ihre Bedürfnisse zugeschnitten sind.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">UI/UX Design</h3>
+                    <p class="text-gray-600">Intuitive und ansprechende Designs, die Ihre Nutzer begeistern.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Beratung</h3>
+                    <p class="text-gray-600">Strategische Beratung, um Ihre digitalen Ziele zu erreichen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="controls">
-      <span>🔀</span>
-      <span>⏮</span>
-      <span class="play-pause">⏸</span>
-      <span>⏭</span>
-      <span>🔁</span>
-    </div>
-  </div>
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Kontakt</h3>
+                    <p class="text-gray-400">E-Mail: info@beispiel.com</p>
+                    <p class="text-gray-400">Telefon: +49 123 456789</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Links</h3>
+                    <a href="#home" class="block text-gray-400 hover:text-white">Home</a>
+                    <a href="#about" class="block text-gray-400 hover:text-white">Über uns</a>
+                    <a href="#services" class="block text-gray-400 hover:text-white">Dienstleistungen</a>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Folgen Sie uns</h3>
+                    <a href="#" class="block text-gray-400 hover:text-white">Twitter</a>
+                    <a href="#" class="block text-gray-400 hover:text-white">LinkedIn</a>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-400">
+                <p>&copy; 2025 Beispiel GmbH. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
 
-  <button id="exportBtn">Download</button>
-
-  <script>
-    function updateCover(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const cover = document.getElementById('cover');
-          cover.style.backgroundImage = `url('${e.target.result}')`;
-
-          const img = new Image();
-          img.src = e.target.result;
-          img.onload = function() {
-            const colorThief = new ColorThief();
-            const dominantColor = colorThief.getColor(img);
-            const rgbColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`;
-            const darkerColor = `rgb(${Math.max(0, dominantColor[0] * 0.7)}, ${Math.max(0, dominantColor[1] * 0.7)}, ${Math.max(0, dominantColor[2] * 0.7)})`;
-            document.getElementById('player').style.background = `linear-gradient(${rgbColor}, ${darkerColor})`;
-          };
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    document.getElementById('exportBtn').addEventListener('click', function () {
-      const player = document.getElementById('player');
-      html2canvas(player, { backgroundColor: null }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'SpotiShotz.jpg';
-        link.href = canvas.toDataURL('image/jpeg', 1.0);
-        link.click();
-      });
-    });
-  </script>
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
