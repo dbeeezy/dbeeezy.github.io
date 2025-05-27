@@ -49,10 +49,10 @@
     }
 
     .back-arrow-img {
-      width: clamp(1rem, 3vw, 1.2rem);
-      height: clamp(1rem, 3vw, 1.2rem);
+      width: clamp(1.2rem, 3.5vw, 1.4rem);
+      height: clamp(1.2rem, 3.5vw, 1.4rem);
       object-fit: contain;
-      image-rendering: auto;
+      image-rendering: pixelated;
     }
 
     .dots {
@@ -63,10 +63,10 @@
     }
 
     .dots-img {
-      width: clamp(0.8rem, 2vw, 0.9rem);
-      height: clamp(0.8rem, 2vw, 0.9rem);
+      width: clamp(1rem, 2.5vw, 1.2rem);
+      height: clamp(1rem, 2.5vw, 1.2rem);
       object-fit: contain;
-      image-rendering: auto;
+      image-rendering: pixelated;
     }
 
     .album-name {
@@ -254,13 +254,13 @@
       }
 
       .back-arrow-img {
-        width: clamp(0.9rem, 3vw, 1rem);
-        height: clamp(0.9rem, 3vw, 1rem);
+        width: clamp(1rem, 3vw, 1.2rem);
+        height: clamp(1rem, 3vw, 1.2rem);
       }
 
       .dots-img {
-        width: clamp(0.9rem, 3vw, 1rem);
-        height: clamp(0.9rem, 3vw, 1rem);
+        width: clamp(0.9rem, 2.5vw, 1rem);
+        height: clamp(0.9rem, 2.5vw, 1rem);
       }
 
       .album-name {
@@ -354,7 +354,12 @@
 
     document.getElementById('exportBtn').addEventListener('click', function () {
       const player = document.getElementById('player');
-      html2canvas(player, { backgroundColor: null, scale: 2 }).then(canvas => {
+      html2canvas(player, { 
+        backgroundColor: null, 
+        scale: 3, 
+        useCORS: true, 
+        willReadFrequently: true 
+      }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'SpotiShotz.jpg';
         link.href = canvas.toDataURL('image/jpeg', 1.0);
