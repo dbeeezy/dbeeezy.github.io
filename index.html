@@ -175,7 +175,7 @@
       margin-top: 10px;
       width: 93%;
       margin-left: auto;
-    margin-right: auto;
+      margin-right: auto;
     }
 
     .control-img {
@@ -312,7 +312,7 @@
   <!-- Header Section -->
   <header class="w-full py-4 px-6">
     <div class="container mx-auto flex items-center space-x-4">
-      <img src="/logo.png" alt="Logo" class="h-8 w-auto object-contain">
+      <img src="/logo.png" alt="Logo" class="h-8 w-auto object-contain" onerror="this.src='https://via.placeholder.com/32';">
       <span class="text-white text-lg font-bold">SpotiShotz</span>
     </div>
   </header>
@@ -332,11 +332,11 @@
     <div class="player" id="player">
       <div class="header">
         <div class="back-arrow">
-          <img src="/dropdown-arrow.svg" alt="Back Arrow" class="back-arrow-img" width="18" height="18">
+          <img src="/dropdown-arrow.svg" alt="Back Arrow" class="back-arrow-img" width="18" height="18" onerror="this.src='https://via.placeholder.com/18';">
         </div>
         <div class="album-name" contenteditable="true">Album Name</div>
         <div class="dots">
-          <img src="/menu-dots.svg" alt="Menu Dots" class="dots-img" width="16" height="16">
+          <img src="/menu-dots.svg" alt="Menu Dots" class="dots-img" width="16" height="16" onerror="this.src='https://via.placeholder.com/16';">
         </div>
       </div>
 
@@ -349,7 +349,7 @@
           <div class="artist" contenteditable="true">Artist Name</div>
         </div>
         <div class="like-button">
-          <img src="/like.svg" alt="Like" class="like-button-img" width="18" height="18">
+          <img src="/like.svg" alt="Like" class="like-button-img" width="18" height="18" onerror="this.src='https://via.placeholder.com/18';">
         </div>
       </div>
 
@@ -360,11 +360,11 @@
       </div>
 
       <div class="controls">
-        <span><img src="/shuffle.svg" alt="Shuffle" class="control-img" width="18" height="18"></span>
-        <span><img src="/previous.svg" alt="Previous" class="control-img" width="18" height="18"></span>
-        <span class="play-pause"><img src="/pause.svg" alt="Pause" class="play-pause-img" width="40" height="40"></span>
-        <span><img src="/next.svg" alt="Next" class="control-img" width="18" height="18"></span>
-        <span><img src="/repeat.svg" alt="Repeat" class="control-img" width="18" height="18"></span>
+        <span><img src="/shuffle.svg" alt="Shuffle" class="control-img" width="18" height="18" onerror="this.src='https://via.placeholder.com/18';"></span>
+        <span><img src="/previous.svg" alt="Previous" class="control-img" width="18" height="18" onerror="this.src='https://via.placeholder.com/18';"></span>
+        <span class="play-pause"><img src="/pause.svg" alt="Pause" class="play-pause-img" width="40" height="40" onerror="this.src='https://via.placeholder.com/40';"></span>
+        <span><img src="/next.svg" alt="Next" class="control-img" width="18" height="18" onerror="this.src='https://via.placeholder.com/18';"></span>
+        <span><img src="/repeat.svg" alt="Repeat" class="control-img" width="18" height="18" onerror="this.src='https://via.placeholder.com/18';"></span>
       </div>
     </div>
     <button id="exportBtn">Download</button>
@@ -395,6 +395,8 @@
       svgs.forEach(src => {
         const img = new Image();
         img.src = src;
+        img.crossOrigin = 'Anonymous'; // Enable CORS for preloaded images
+        img.onerror = () => console.warn(`Failed to preload image: ${src}`);
       });
     }
 
@@ -403,24 +405,49 @@
 
     function updateCover(event) {
       const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const cover = document.getElementById('cover');
-          cover.style.backgroundImage = url('${e.target.result}');
+      if (!file) {
+        console.error('No file selected');
+        alert('No file selected. Please choose an image.');
+        return;
+      }
 
-          const img = new Image();
-          img.src = e.target.result;
-          img.onload = function() {
+      if (!file.type.startsWith('image/')) {
+        console.error('Invalid file type:', file.type);
+        alert('Please upload a valid image file (e.g., JPEG, PNG).');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const cover = document.getElementById('cover');
+        cover.style.backgroundImage = `url(${e.target.result})`;
+
+        const img = new Image();
+        img.src = e.target.result;
+        img.crossOrigin = 'Anonymous'; // Enable CORS for ColorThief
+        img.onload = function() {
+          try {
             const colorThief = new ColorThief();
             const dominantColor = colorThief.getColor(img);
-            const rgbColor = rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]});
-            const darkerColor = rgb(${Math.max(0, dominantColor[0] * 0.7)}, ${Math.max(0, dominantColor[1] * 0.7)}, ${Math.max(0, dominantColor[2] * 0.7)});
-            document.getElementById('player').style.background = linear-gradient(${rgbColor}, ${darkerColor});
-          };
+            const rgbColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`;
+            const darkerColor = `rgb(${Math.max(0, Math.floor(dominantColor[0] * 0.7))}, ${Math.max(0, Math.floor(dominantColor[1] * 0.7))}, ${Math.max(0, Math.floor(dominantColor[2] * 0.7))})`;
+            document.getElementById('player').style.background = `linear-gradient(${rgbColor}, ${darkerColor})`;
+          } catch (error) {
+            console.error('Error processing image with ColorThief:', error);
+            alert('Could not process the image for color extraction. Using default background.');
+            document.getElementById('player').style.background = 'linear-gradient(#2a2a2a, #000)';
+          }
         };
-        reader.readAsDataURL(file);
-      }
+        img.onerror = function() {
+          console.error('Failed to load image for ColorThief');
+          alert('Could not process the uploaded image. Please try another one.');
+        };
+      };
+      reader.onerror = function() {
+        console.error('Error reading file');
+        alert('Error reading the uploaded file.');
+      };
+      reader.readAsDataURL(file);
     }
 
     document.querySelector('.play-pause').addEventListener('click', function () {
@@ -469,10 +496,16 @@
 
       html2canvas(player, {
         backgroundColor: null,
-        scale: 2, // Balanced quality and size
+        scale: 2,
         useCORS: true,
-        willReadFrequently: true,
-        logging: false
+        logging: false,
+        onclone: (document, element) => {
+          // Ensure SVGs are loaded in the cloned document
+          const clonedSvgs = element.querySelectorAll('img[src$=".svg"]');
+          clonedSvgs.forEach(svg => {
+            svg.crossOrigin = 'Anonymous';
+          });
+        }
       }).then(canvas => {
         // Restore original styles and attributes
         svgs.forEach(svg => {
@@ -485,6 +518,9 @@
         link.download = 'SpotiShotz.jpg';
         link.href = canvas.toDataURL('image/jpeg', 1.0);
         link.click();
+      }).catch(error => {
+        console.error('Error generating canvas:', error);
+        alert('Failed to export image. Ensure all resources are accessible and try again.');
       });
     });
   </script>
