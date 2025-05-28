@@ -213,6 +213,14 @@
       filter: brightness(0) saturate(100%) invert(36%) sepia(99%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%); /* Spotify green #1db954 */
     }
 
+    .spotify-text {
+      background: linear-gradient(to bottom, #ff216d, #ff8ab2); /* Gradient from pink to brighter pink */
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
     @media (min-width: 768px) {
       .player {
         padding-top: 25px;
@@ -304,7 +312,7 @@
   <!-- Intro Text Section -->
   <section class="w-full py-12 px-6 text-center">
     <div class="container mx-auto">
-      <h1 class="text-white text-4xl md:text-5xl font-bold mb-4">See your song the <span class="text-[#ff216d]">Spotify</span> way.</h1>
+      <h1 class="text-white text-4xl md:text-5xl font-bold mb-4">See your song the <span class="spotify-text">Spotify</span> way.</h1>
       <p class="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto">
         Upload your cover, add a title and artist, and see how your track would look on Spotify.
       </p>
@@ -355,9 +363,7 @@
 
   <!-- Footer Section -->
   <footer class="w-full py-4 px-6 bg-[#090808]">
-    <div class="container mx-auto flex justify-center space-x-6 text-gray-400">
-      <a href="#" class="hover:text-white">Spotify</a>
-      <a href="#" class="hover:text-white">Instagram</a>
+    <div class="container mx-auto flex justify-center space-x-6">
     </div>
   </footer>
 
