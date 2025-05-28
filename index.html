@@ -45,28 +45,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
+      cursor: pointer;
     }
 
     .back-arrow-img {
       width: clamp(1.2rem, 3.5vw, 1.4rem);
       height: clamp(1.2rem, 3.5vw, 1.4rem);
       object-fit: contain;
-      image-rendering: pixelated;
     }
 
     .dots {
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
+      cursor: pointer;
     }
 
     .dots-img {
       width: clamp(1rem, 2.5vw, 1.2rem);
       height: clamp(1rem, 2.5vw, 1.2rem);
       object-fit: contain;
-      image-rendering: pixelated;
     }
 
     .album-name {
@@ -88,6 +86,11 @@
       background-position: center;
       border-radius: 8px;
       cursor: pointer;
+      position: relative;
+    }
+
+    input[type="file"] {
+      display: none !important; /* Ensure file input is hidden */
     }
 
     .song-info {
@@ -119,9 +122,16 @@
     }
 
     .like-button {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      color: #1db954;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .like-button-img {
+      width: clamp(1rem, 3vw, 1.2rem);
+      height: clamp(1rem, 3vw, 1.2rem);
+      object-fit: contain;
     }
 
     .progress-bar {
@@ -162,22 +172,36 @@
       margin-right: auto;
     }
 
+    .control-img {
+      width: clamp(1rem, 3vw, 1.2rem);
+      height: clamp(1rem, 3vw, 1.2rem);
+      object-fit: contain;
+    }
+
+    .play-pause-img {
+      width: clamp(2rem, 6vw, 2.5rem);
+      height: clamp(2rem, 6vw, 2.5rem);
+      object-fit: contain;
+    }
+
     .controls span {
       cursor: pointer;
       padding: 5px;
       transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .controls span:active {
       transform: scale(0.9);
     }
 
-    .play-pause {
-      font-size: clamp(2rem, 6vw, 2.5rem);
-    }
-
-    input[type="file"] {
-      display: none;
+    .back-arrow:hover img,
+    .dots:hover img,
+    .like-button:hover img,
+    .controls span:hover img {
+      filter: brightness(0) saturate(100%) invert(36%) sepia(99%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%); /* Spotify緑 #1db954 */
     }
 
     #exportBtn {
@@ -274,9 +298,7 @@
   <!-- Header Section -->
   <header class="w-full py-4 px-6">
     <div class="container mx-auto flex items-center space-x-4">
-      <!-- Logo -->
       <img src="/logo.png" alt="Logo" class="h-8 w-auto object-contain">
-      <!-- SpotiShotz Text -->
       <span class="text-white text-lg font-bold">SpotiShotz</span>
     </div>
   </header>
@@ -296,11 +318,11 @@
     <div class="player" id="player">
       <div class="header">
         <div class="back-arrow">
-          <img src="/back-arrow.png" alt="Back Arrow" class="back-arrow-img">
+          <img src="/dropdown-arrow.svg" alt="Back Arrow" class="back-arrow-img">
         </div>
         <div class="album-name" contenteditable="true">Album Name</div>
         <div class="dots">
-          <img src="/dots.png" alt="Menu Dots" class="dots-img">
+          <img src="/menu-dots.svg" alt="Menu Dots" class="dots-img">
         </div>
       </div>
 
@@ -312,7 +334,9 @@
           <div class="song-title" contenteditable="true">Song Title</div>
           <div class="artist" contenteditable="true">Artist Name</div>
         </div>
-        <div class="like-button">✓</div>
+        <div class="like-button">
+          <img src="/like.svg" alt="Like" class="like-button-img">
+        </div>
       </div>
 
       <div class="progress-bar">
@@ -322,11 +346,11 @@
       </div>
 
       <div class="controls">
-        <span>🔀</span>
-        <span>⏮</span>
-        <span class="play-pause">⏸</span>
-        <span>⏭</span>
-        <span>🔁</span>
+        <span><img src="/shuffle.svg" alt="Shuffle" class="control-img"></span>
+        <span><img src="/previous.svg" alt="Previous" class="control-img"></span>
+        <span class="play-pause"><img src="/pause.svg" alt="Play" class="play-pause-img"></span>
+        <span><img src="/next.svg" alt="Next" class="control-img"></span>
+        <span><img src="/repeat.svg" alt="Repeat" class="control-img"></span>
       </div>
     </div>
     <button id="exportBtn">Download</button>
@@ -363,11 +387,22 @@
       }
     }
 
+    document.querySelector('.play-pause').addEventListener('click', function () {
+      const img = this.querySelector('img');
+      if (img.src.includes('play.svg')) {
+        img.src = '/icons/pause.svg';
+        img.alt = 'Pause';
+      } else {
+        img.src = '/icons/play.svg';
+        img.alt = 'Play';
+      }
+    });
+
     document.getElementById('exportBtn').addEventListener('click', function () {
       const player = document.getElementById('player');
       html2canvas(player, { 
         backgroundColor: null, 
-        scale: 3, 
+        scale: 4, 
         useCORS: true, 
         willReadFrequently: true 
       }).then(canvas => {
