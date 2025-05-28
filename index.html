@@ -91,6 +91,21 @@
       border-radius: 8px;
       cursor: pointer;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .upload-icon {
+      width: clamp(2rem, 8vw, 3rem);
+      height: clamp(2rem, 8vw, 3rem);
+      opacity: 0.7;
+      fill: #ccc; /* Light gray to contrast with #444 background */
+      transition: opacity 0.3s ease;
+    }
+
+    .upload-icon.hidden {
+      display: none;
     }
 
     input[type="file"] {
@@ -224,7 +239,6 @@
       padding-bottom: 2px; /* Add padding to prevent clipping of descenders */
     }
 
-    /* Adjust the h1 to accommodate the text */
     h1 {
       line-height: 1.3; /* Increase line-height to prevent clipping */
       margin-bottom: 8px; /* Add some margin to ensure space */
@@ -307,10 +321,14 @@
         font-size: clamp(0.65rem, 2vw, 0.75rem);
       }
 
-      /* Adjust h1 for smaller screens */
       h1 {
         line-height: 1.4; /* Slightly more line-height for smaller screens */
         margin-bottom: 6px;
+      }
+
+      .upload-icon {
+        width: clamp(1.5rem, 6vw, 2rem);
+        height: clamp(1.5rem, 6vw, 2rem);
       }
     }
   </style>
@@ -347,7 +365,11 @@
         </div>
       </div>
 
-      <div id="cover" class="cover" onclick="document.getElementById('coverInput').click()"></div>
+      <div id="cover" class="cover" onclick="document.getElementById('coverInput').click()">
+        <svg id="uploadIcon" class="upload-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3v9m0-9l-4 4m4-4l4 4m-10 5v4a2 2 0 002 2h8a2 2 0 002-2v-4" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
       <input type="file" id="coverInput" accept="image/*" onchange="updateCover(event)" />
 
       <div class="song-info">
@@ -410,7 +432,9 @@
         const reader = new FileReader();
         reader.onload = function(e) {
           const cover = document.getElementById('cover');
-          cover.style.backgroundImage = url(${e.target.result});
+          const uploadIcon = document.getElementById('uploadIcon');
+          cover.style.backgroundImage = `url(${e.target.result})`;
+          uploadIcon.classList.add('hidden'); // Hide the upload icon
 
           const img = new Image();
           img.crossOrigin = 'Anonymous'; // Handle CORS for external images
@@ -419,9 +443,9 @@
             try {
               const colorThief = new ColorThief();
               const dominantColor = colorThief.getColor(img);
-              const rgbColor = rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]});
-              const darkerColor = rgb(${Math.max(0, Math.floor(dominantColor[0] * 0.7))}, ${Math.max(0, Math.floor(dominantColor[1] * 0.7))}, ${Math.max(0, Math.floor(dominantColor[2] * 0.7))});
-              document.getElementById('player').style.background = linear-gradient(${rgbColor}, ${darkerColor});
+              const rgbColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`;
+              const darkerColor = `rgb(${Math.max(0, Math.floor(dominantColor[0] * 0.7))}, ${Math.max(0, Math.floor(dominantColor[1] * 0.7))}, ${Math.max(0, Math.floor(dominantColor[2] * 0.7))})`;
+              document.getElementById('player').style.background = `linear-gradient(${rgbColor}, ${darkerColor})`;
             } catch (error) {
               console.error('Error extracting color:', error);
             }
