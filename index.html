@@ -219,6 +219,14 @@
       background-clip: text;
       color: transparent;
       display: inline-block;
+      line-height: 1.2; /* Ensure enough vertical space for descenders */
+      padding-bottom: 2px; /* Add padding to prevent clipping of descenders */
+    }
+
+    /* Adjust the h1 to accommodate the text */
+    h1 {
+      line-height: 1.3; /* Increase line-height to prevent clipping */
+      margin-bottom: 8px; /* Add some margin to ensure space */
     }
 
     @media (min-width: 768px) {
@@ -296,6 +304,12 @@
 
       .album-name {
         font-size: clamp(0.65rem, 2vw, 0.75rem);
+      }
+
+      /* Adjust h1 for smaller screens */
+      h1 {
+        line-height: 1.4; /* Slightly more line-height for smaller screens */
+        margin-bottom: 6px;
       }
     }
   </style>
