@@ -100,7 +100,7 @@
       width: clamp(10rem, 100vw, 10rem);
       height: clamp(2rem, 100vw, 4rem);
       opacity: 0.7;
-      fill: #ccc; /* Light gray to contrast with #444 background */
+      fill: #ccc;
       transition: opacity 0.3s ease;
     }
 
@@ -185,12 +185,13 @@
 
     .controls {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
       margin-top: 10px;
       width: 93%;
       margin-left: auto;
       margin-right: auto;
+      gap: 20px; /* Added gap for spacing between icons */
     }
 
     .control-img {
@@ -226,22 +227,22 @@
     .dots:hover img,
     .like-button:hover img,
     .controls span:hover img {
-      filter: brightness(0) saturate(100%) invert(36%) sepia(99%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%); /* Spotify green #1db954 */
+      filter: brightness(0) saturate(100%) invert(36%) sepia(99%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
     }
 
     .spotify-text {
-      background: linear-gradient(to bottom, #fe0059, #db346f); /* Gradient from pink to brighter pink */
+      background: linear-gradient(to bottom, #fe0059, #db346f);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       display: inline-block;
-      line-height: 1.2; /* Ensure enough vertical space for descenders */
-      padding-bottom: 2px; /* Add padding to prevent clipping of descenders */
+      line-height: 1.2;
+      padding-bottom: 2px;
     }
 
     h1 {
-      line-height: 1.3; /* Increase line-height to prevent clipping */
-      margin-bottom: 8px; /* Add some margin to ensure space */
+      line-height: 1.3;
+      margin-bottom: 8px;
     }
 
     @media (min-width: 768px) {
@@ -322,7 +323,7 @@
       }
 
       h1 {
-        line-height: 1.4; /* Slightly more line-height for smaller screens */
+        line-height: 1.4;
         margin-bottom: 6px;
       }
 
@@ -334,7 +335,6 @@
   </style>
 </head>
 <body class="bg-[#090808] min-h-screen flex flex-col">
-  <!-- Header Section -->
   <header class="w-full py-4 px-6">
     <div class="container mx-auto flex items-center space-x-4">
       <img src="/logo.png" alt="Logo" class="h-8 w-auto object-contain">
@@ -342,7 +342,6 @@
     </div>
   </header>
 
-  <!-- Intro Text Section -->
   <section class="w-full py-12 px-6 text-center">
     <div class="container mx-auto">
       <h1 class="text-white text-4xl md:text-5xl font-bold mb-4">See your song the way <span class="spotify-text">Spotify</span> does.</h1>
@@ -352,7 +351,6 @@
     </div>
   </section>
 
-  <!-- Main Content -->
   <main class="flex-grow container mx-auto px-6 flex justify-center items-center flex-col pb-12">
     <div class="player" id="player">
       <div class="header">
@@ -374,8 +372,8 @@
 
       <div class="song-info">
         <div class="song-details">
-          <div class="song-title" contenteditable="true">Song Title</div>
-          <div class="artist" contenteditable="true">Artist Name</div>
+          <div class="song-title" contenteditable="true">Vanished</div>
+          <div class="artist" contenteditable="true">Crystal Castles</div>
         </div>
         <div class="like-button">
           <img src="/like.svg" alt="Like" class="like-button-img" width="18" height="18">
@@ -383,9 +381,9 @@
       </div>
 
       <div class="progress-bar">
-        <span>1:09</span>
+        <span>0:04</span>
         <div class="bar"></div>
-        <span>-2:21</span>
+        <span>-3:58</span>
       </div>
 
       <div class="controls">
@@ -393,19 +391,17 @@
         <span><img src="/previous.svg" alt="Previous" class="control-img" width="18" height="18"></span>
         <span class="play-pause"><img src="/pause.svg" alt="Pause" class="play-pause-img" width="40" height="40"></span>
         <span><img src="/next.svg" alt="Next" class="control-img" width="18" height="18"></span>
-        <span><img src="/repeat.svg" alt="Repeat" class="control-img" width="18" height="18"></span>
+        <span><img src="/repeat.svg" alt="Repeat" control-img" width="18" height="18"></span>
       </div>
     </div>
   </main>
 
-  <!-- Footer Section -->
   <footer class="w-full py-4 px-6 bg-[#090808]">
     <div class="container mx-auto flex justify-center space-x-6">
     </div>
   </footer>
 
   <script>
-    // Preload SVG images to ensure they are loaded
     function preloadImages() {
       const svgs = [
         '/dropdown-arrow.svg',
@@ -423,7 +419,6 @@
       });
     }
 
-    // Call preloadImages when the page loads
     window.addEventListener('load', preloadImages);
 
     function updateCover(event) {
@@ -434,10 +429,10 @@
           const cover = document.getElementById('cover');
           const uploadIcon = document.getElementById('uploadIcon');
           cover.style.backgroundImage = `url(${e.target.result})`;
-          uploadIcon.classList.add('hidden'); // Hide the upload icon
+          uploadIcon.classList.add('hidden');
 
           const img = new Image();
-          img.crossOrigin = 'Anonymous'; // Handle CORS for external images
+          img.crossOrigin = 'Anonymous';
           img.src = e.target.result;
           img.onload = function() {
             try {
