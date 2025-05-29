@@ -65,8 +65,8 @@
     }
 
     .album-name {
-      font-weight: 600;
-      font-size: 14px;
+      font-weight: bold;
+      font-size: clamp(0.75rem, 2.5vw, 0.85rem);
       color: #ffffff;
       cursor: pointer;
       text-align: center;
@@ -75,9 +75,13 @@
       transform: translateX(-50%);
       width: 70%;
       margin: 0;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
+      line-height: 1.2em;
+      max-height: 2.4em;
     }
 
     .cover {
@@ -125,8 +129,8 @@
     }
 
     .song-title {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      font-weight: bold;
       margin-bottom: 4px;
       white-space: nowrap;
       overflow: hidden;
@@ -134,8 +138,8 @@
     }
 
     .artist {
-      font-size: 14px;
-      color: #b3b3b3;
+      font-size: clamp(0.9rem, 3vw, 1rem);
+      color: #aaa;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
