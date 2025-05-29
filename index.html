@@ -463,35 +463,25 @@
     function downloadPlayerImage() {
       const player = document.getElementById('player');
       
-      // Clone the player element to manipulate without affecting the original
+      // Clone the player element to capture its current state
       const clone = player.cloneNode(true);
       
-      // Remove contenteditable attributes to improve rendering
-      clone.querySelectorAll('[contenteditable]').forEach(el => {
-        el.removeAttribute('contenteditable');
-      });
-
-      // Ensure the clone is styled correctly
+      // Preserve the original content and styles
       clone.style.position = 'absolute';
-      clone.style.left = '-9999px'; // Move off-screen to avoid visual interference
-      clone.style.width = player.offsetWidth + 'px';
-      clone.style.height = player.offsetHeight + 'px';
+      clone.style.left = '-9999px'; // Move off-screen
+      clone.style.top = '-9999px';
       document.body.appendChild(clone);
 
-      // Force a repaint by accessing offsetHeight
+      // Force a repaint
       clone.offsetHeight;
 
-      // Add a small delay to allow rendering to stabilize
+      // Use a longer delay to ensure all content is rendered
       setTimeout(() => {
         html2canvas(clone, {
-          scale: window.devicePixelRatio * 2,
+          scale: window.devicePixelRatio,
           useCORS: true,
           allowTaint: true,
           backgroundColor: null,
-          width: clone.offsetWidth,
-          height: clone.offsetHeight,
-          windowWidth: document.documentElement.offsetWidth,
-          windowHeight: document.documentElement.offsetHeight,
           scrollX: 0,
           scrollY: 0
         }).then(canvas => {
@@ -500,13 +490,13 @@
           link.href = canvas.toDataURL('image/png');
           link.click();
           
-          // Clean up the clone
+          // Clean up
           document.body.removeChild(clone);
         }).catch(error => {
           console.error('Error capturing player image:', error);
           document.body.removeChild(clone);
         });
-      }, 100); // 100ms delay to ensure rendering
+      }, 500); // Increased to 500ms for better rendering
     }
   </script>
 </body>
