@@ -252,30 +252,30 @@
       align-items: center;
       justify-content: center;
       margin-top: 20px;
-      padding: 12px 24px; /* Increased padding for larger button */
+      padding: 12px 24px;
       background-color: #fe0059;
-      border-radius: 25px; /* Slightly larger radius */
+      border-radius: 25px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     .download-button:hover {
-      background-color: rgba(255, 255, 255, 0.2); /* Light transparent white */
+      background-color: rgba(255, 255, 255, 0.2);
     }
 
     .download-icon {
-      width: 24px; /* Increased icon size */
+      width: 24px;
       height: 24px;
       fill: white;
     }
 
-    /* Updated hover effect for all SVGs to use pink (#fe0059) */
+    /* Updated hover effect for all SVGs to use #fe0059 */
     .back-arrow:hover img,
     .dots:hover img,
     .like-button:hover img,
     .controls span:hover img,
     .download-button:hover .download-icon {
-      filter: brightness(0) saturate(100%) invert(40%) sepia(99%) saturate(1352%) hue-rotate(310deg) brightness(105%) contrast(110%); /* Matches #fe0059 */
+      fill: #fe0059; /* Direct color change instead of filter */
     }
 
     .spotify-text {
@@ -381,11 +381,11 @@
       }
 
       .download-button {
-        padding: 10px 20px; /* Adjusted for smaller screens */
+        padding: 10px 20px;
       }
 
       .download-icon {
-        width: 20px; /* Adjusted for smaller screens */
+        width: 20px;
         height: 20px;
       }
     }
@@ -519,10 +519,10 @@
     function downloadPlayerImage() {
       const player = document.getElementById('player');
       html2canvas(player, {
-        scale: window.devicePixelRatio * 2, // Increase scale for better resolution and text rendering
-        useCORS: true, // Handle cross-origin images
+        scale: window.devicePixelRatio * 2,
+        useCORS: true,
         allowTaint: true,
-        backgroundColor: null // Preserve transparency
+        backgroundColor: null
       }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'spotishotz-player.png';
