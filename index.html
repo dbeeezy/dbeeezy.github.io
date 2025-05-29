@@ -252,20 +252,20 @@
       align-items: center;
       justify-content: center;
       margin-top: 20px;
-      padding: 8px 16px;
+      padding: 12px 24px; /* Increased padding for larger button */
       background-color: #fe0059;
-      border-radius: 20px;
+      border-radius: 25px; /* Slightly larger radius */
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     .download-button:hover {
-      background-color: #db346f; /* Slightly darker pink for hover effect */
+      background-color: rgba(255, 255, 255, 0.2); /* Light transparent white */
     }
 
     .download-icon {
-      width: 20px;
-      height: 20px;
+      width: 24px; /* Increased icon size */
+      height: 24px;
       fill: white;
     }
 
@@ -381,12 +381,12 @@
       }
 
       .download-button {
-        padding: 6px 12px;
+        padding: 10px 20px; /* Adjusted for smaller screens */
       }
 
       .download-icon {
-        width: 16px;
-        height: 16px;
+        width: 20px; /* Adjusted for smaller screens */
+        height: 20px;
       }
     }
   </style>
@@ -518,7 +518,12 @@
 
     function downloadPlayerImage() {
       const player = document.getElementById('player');
-      html2canvas(player).then(canvas => {
+      html2canvas(player, {
+        scale: window.devicePixelRatio * 2, // Increase scale for better resolution and text rendering
+        useCORS: true, // Handle cross-origin images
+        allowTaint: true,
+        backgroundColor: null // Preserve transparency
+      }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'spotishotz-player.png';
         link.href = canvas.toDataURL('image/png');
