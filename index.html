@@ -29,6 +29,7 @@
       flex-direction: column;
       justify-content: space-between;
       position: relative;
+      overflow: hidden; /* Ensure nothing escapes the player */
     }
 
     .header {
@@ -40,6 +41,7 @@
       margin-left: auto;
       margin-right: auto;
       position: relative;
+      overflow: hidden; /* Prevent overflow */
     }
 
     .back-arrow {
@@ -83,13 +85,13 @@
       transform: translateX(-50%);
       width: 70%;
       margin: 0;
-      display: -webkit-box; /* Enable line clamping */
-      -webkit-box-orient: vertical; /* Set direction for clamping */
-      -webkit-line-clamp: 2; /* Limit to 2 lines */
-      overflow: hidden; /* Hide overflow */
-      text-overflow: ellipsis; /* Add ellipsis for overflow */
-      line-height: 1.2em; /* Control line height for consistency */
-      max-height: 2.4em; /* 2 lines * line-height */
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2em;
+      max-height: 2.4em;
     }
 
     .cover {
@@ -131,11 +133,14 @@
       width: 93%;
       margin-left: auto;
       margin-right: auto;
+      overflow: hidden; /* Prevent overflow */
     }
 
     .song-details {
       text-align: left;
       flex: 1;
+      overflow: hidden; /* Prevent text from escaping */
+      margin-right: 10px; /* Add space for the like button */
     }
 
     .song-title {
@@ -143,18 +148,18 @@
       font-weight: bold;
       cursor: pointer;
       margin-bottom: 4px;
-      white-space: nowrap; /* Prevent wrapping */
-      overflow: hidden; /* Hide overflow */
-      text-overflow: ellipsis; /* Add ellipsis for overflow */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .artist {
       font-size: clamp(0.9rem, 3vw, 1rem);
       color: #aaa;
       cursor: pointer;
-      white-space: nowrap; /* Prevent wrapping */
-      overflow: hidden; /* Hide overflow */
-      text-overflow: ellipsis; /* Add ellipsis for overflow */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .like-button {
@@ -162,6 +167,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0; /* Prevent shrinking */
     }
 
     .like-button-img {
