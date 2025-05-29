@@ -39,6 +39,7 @@
       width: 93%;
       margin-left: auto;
       margin-right: auto;
+      position: relative; /* Added for absolute positioning of album-name */
     }
 
     .back-arrow {
@@ -77,7 +78,10 @@
       color: #ffffff;
       cursor: pointer;
       text-align: center;
-      flex-grow: 1;
+      position: absolute; /* Changed to absolute positioning */
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Adjust for center alignment */
+      width: 70%; /* Optional: limits width to prevent overlap with icons */
       margin: 0;
     }
 
@@ -148,11 +152,11 @@
     }
 
     .like-button-img {
-      width: clamp(1.2rem, 3vw, 1.5rem); /* Reduced size */
-      height: clamp(1.2rem, 3vw, 1.5rem); /* Reduced size */
+      width: clamp(1.2rem, 3vw, 1.5rem);
+      height: clamp(1.2rem, 3vw, 1.5rem);
       object-fit: contain;
-      max-width: 24px; /* Reduced max-width */
-      max-height: 24px; /* Reduced max-height */
+      max-width: 24px;
+      max-height: 24px;
     }
 
     .progress-bar {
